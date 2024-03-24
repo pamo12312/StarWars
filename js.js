@@ -7,16 +7,24 @@ tlacitkoNacistData.addEventListener('click', async () => {
     nacitaniDiv.style.display = 'block';
     planetyDiv.innerHTML = '';
     try {
-        const odpoved = await fetch('https://swapi.py4e.com/api/planets/');
+        const odpoved = await fetch('https://swapi.py4e.com/api/planets');
         if (!odpoved.ok) {
             alert('Data se nepodařilo načíst');
         }
         const data = await odpoved.json();
         const planety = data.results;
         planety.forEach(planeta => {
-            const planetElement = document.createElement('div');
-            planetElement.innerHTML = `<strong>Planeta: </strong>${planeta.name}`;
-            planetyDiv.appendChild(planetElement);
+            const planetDiv = document.createElement('div');
+
+            const jmeno = document.createElement('div');
+            jmeno.innerHTML = `<strong>Název planety: </strong>${planeta.name}`;
+            planetDiv.appendChild(jmeno);
+
+            const prumer = document.createElement('div');
+            prumer.innerHTML = `<strong>Průměr planety: </strong>${planeta.diameter}`;
+            planetDiv.appendChild(prumer);
+
+            planetyDiv.appendChild(planetDiv);
         });
 
     }  finally {
